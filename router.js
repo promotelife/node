@@ -1,11 +1,11 @@
 
 
-function route(handle,pathname,response)
+function route(handle,pathname,response,request)
 {
 	console.log("About to route a reauest for "+ pathname);
 
 	if (typeof handle[pathname] === 'function'){
-		handle[pathname](response);
+		handle[pathname](response,request);
 	}
 	else{
 		console.log("No request handler found for " + pathname);

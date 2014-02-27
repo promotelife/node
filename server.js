@@ -4,18 +4,30 @@ var url = require("url");
 function start(route,handle){
 	function onRequest(request,response)
 	{	
+		var postData = ''
 		var pathname = url.parse(request.url).pathname;
 		if(pathname!="/favicon.ico"){
 			console.log("Request for "+pathname+" received.");
+			route(handle,pathname,response,request);
+			// request.setEncoding("utf8");
+			
+			// request.addListener("data", function(postDataChunk){
+			// 	postData+=postDataChunk;
+			// 	console.log("Received Post data chunk '"+postDataChunk+"'.");
+			// });
 
-			// route(handle,pathname);
-			route(handle,pathname,response);
+			// request.addListener("end",function(){
+
+			// 	// route(handle,pathname);
+			// 	route(handle,pathname,response,postData);
+			// })
+
 		}
 
 	}	
 
 	http.createServer(onRequest).listen(8888);
-	console.log("服务器运行在 http://127.0.0.1:8888");
+	console.log("Server has started.");
 }
 
 exports.start=start;
